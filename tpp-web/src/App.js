@@ -13,7 +13,7 @@ import Reports from "./pages/Reports";
 
 export default function App() {
   return (
-    <div className="App">
+    <div className="flex">
 
       <Navbar />
       <Routes>
@@ -21,6 +21,7 @@ export default function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
 
     </div>

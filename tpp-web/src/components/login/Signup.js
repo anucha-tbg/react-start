@@ -21,11 +21,11 @@ export default function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
     serErrors(Validation(value));
-    if (errors.username === "" && errors.password === "") {
+    if (errors.username !== "" && errors.password !== "") {
       axios.post('http://localhost:8080/signup', value)
         .then(res => {
           if (res.data === "success") {
-            navigate('/home');
+            navigate('/');
           } else {
             alert("ไม่พบข้อมูล");
           }
@@ -37,27 +37,32 @@ export default function Signup() {
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <h3 className='text-center mb-2'>Sign Up</h3>
+      <div
+        className="sign-in__wrapper"
+        
+      >
+        <Card>
+          <Card.Body>
+            <h3 className='text-center mb-2'>Sign Up</h3>
 
-          <Form onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label>User name</Form.Label>
-              <Form.Control type='text' id="username" name="username" onChange={handleInput}></Form.Control>
-              {errors.username && <span className='text-danger'>{errors.username}</span>}
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Password</Form.Label>
-              <Form.Control type='password' id="password" name="password" onChange={handleInput}></Form.Control>
-              {errors.password && <span className='text-danger'>{errors.password}</span>}
-            </Form.Group>
-            <Button type='submit' className='w-100 mt-2'>Sign In</Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className='w-100 text-center mt-2'>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label>User name</Form.Label>
+                <Form.Control type='text' id="username" name="username" onChange={handleInput}></Form.Control>
+                {errors.username && <span className='text-danger'>{errors.username}</span>}
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control type='password' id="password" name="password" onChange={handleInput}></Form.Control>
+                {errors.password && <span className='text-danger'>{errors.password}</span>}
+              </Form.Group>
+              <Button type='submit' className='w-100 mt-2'>Register</Button>
+            </Form>
+          </Card.Body>
+        </Card>
+        <div className='w-100 text-center mt-2'>
 
+        </div>
       </div>
     </>);
 }

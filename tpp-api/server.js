@@ -22,14 +22,15 @@ const db = mysql.createPool({
 
 
 app.post('/signup', (req, res) => {
+  console.log("signup", req.bod)
   const username = req.body.username;
   const password = req.body.password;
   db.query("INSERT INTO user(user_name,password) VALUES(?,?)", [username, password], (err, data) => {
     if (err) {
       console.log(err)
     } else {
-      console.log(data)
-      res.send({ username: username })
+      return res.json("success");
+      //res.send({ username: username })
     }
   })
 })

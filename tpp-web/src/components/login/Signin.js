@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+ 
 import "./Signin.css";
 
 import BackgroundImage from "../../assets/images/background.png";
@@ -109,6 +110,9 @@ const Signin = () => {
                         Logging In...
                     </Button>
                 )}
+                 <div className="d-grid justify-content-end">
+                    <Link to="/signup" type='submit' className='w-100 mt-2'>Register</Link>
+                </div>
                 <div className="d-grid justify-content-end">
                     <Button
                         className="text-muted px-0"
