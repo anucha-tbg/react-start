@@ -32,7 +32,7 @@ const Signin = () => {
                 .then(res => {
                     console.log(res)
                     if (res.data === "success") {
-                        navigate('/');
+                        navigate('/home');
                     } else {
                         alert("ไม่พบข้อมูล");
                     }
@@ -103,7 +103,7 @@ const Signin = () => {
                 </Form.Group>
                 {!loading ? (
                     <Button className="w-100" variant="primary" type="submit">
-                        Log In
+                        Register
                     </Button>
                 ) : (
                     <Button className="w-100" variant="primary" type="submit" disabled>

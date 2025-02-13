@@ -22,7 +22,7 @@ const db = mysql.createPool({
 
 
 app.post('/signup', (req, res) => {
-  console.log("signup", req.bod)
+  console.log("signup", req.body)
   const username = req.body.username;
   const password = req.body.password;
   db.query("INSERT INTO user(user_name,password) VALUES(?,?)", [username, password], (err, data) => {

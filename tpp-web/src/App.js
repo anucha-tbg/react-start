@@ -17,11 +17,12 @@ export default function App() {
 
       <Navbar />
       <Routes>
-        <Route path="/" exact element={<Home />} />
+        <Route path="/" exact element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/products" element={<Products />} />
         <Route path="/reports" element={<Reports />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<Home />} />
+        
       </Routes>
 
     </div>
