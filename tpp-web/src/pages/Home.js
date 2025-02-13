@@ -6,10 +6,7 @@ import { Card, Form, Button, Table } from 'react-bootstrap';
 export default function Home() {
 
   const [data, setData] = useState([]);
-
-
-  //http://localhost:8080/getUser
-  var getUser = []
+  //http://localhost:8080/getUser  
   console.log("Home")
 
   useEffect(() => {
@@ -27,7 +24,7 @@ export default function Home() {
 
   const handleDelete = (id) => {
     axios
-      .post('http://localhost:8080/deleteusers',[id])
+      .post('http://localhost:8080/deleteusers', [id])
       .then(() => {
         alert("ลบข้อมูลสำเร็จ!");
         window.location.reload();
@@ -35,10 +32,13 @@ export default function Home() {
       .catch((err) => console.error(err));
   };
 
+  const handleEdit = (id) => {
+     alert("edit item id = " + id)
+  };
 
   return (
     <>
-      <div className="Home">
+      <div>
         <h1>Home</h1>
       </div>
       <div>
@@ -59,7 +59,13 @@ export default function Home() {
                   <td>{item.user_name}</td>
                   <td>{item.password}</td>
                   <td>
-                    <Button className='btn-danger' onClick={() => handleDelete(item.id)}>ลบ</Button>
+                    <span>
+                      <Button className='btn btn-danger' onClick={() => handleDelete(item.id)}>ลบ</Button>
+                    </span>
+                    <span>
+                      <Button className='btn btn-success  p-2' onClick={() => handleEdit(item.id)}>แก้ไข</Button>
+                    </span>
+
                   </td>
                 </tr>
               ))}

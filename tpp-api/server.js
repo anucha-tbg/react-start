@@ -4,19 +4,20 @@ const mysql = require('mysql2');
 //const mysql = require('mysql2/promise');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+ 
 
 const app = express();
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
-
+ 
 const db = mysql.createPool({
   connectionLimit: 10,
-  host: 'localhost',
-  user: 'root',
-  password: '5WV3gxFHzJ',
-  database: 'tpp_test'
+  host: "localhost",
+  user: "root",
+  password: "5WV3gxFHzJ",
+  database: "tpp_test"
 });
 
 
@@ -36,36 +37,36 @@ app.post('/signup', (req, res) => {
 app.post('/signin', (req, res) => {
   //const username = req.body.username;
   //const password = req.body.password;
-  const username =req.body[0];
-  const password =req.body[1];
+  const username = req.body[0];
+  const password = req.body[1];
   console.log(req.body[0])
   db.query("SELECT * FROM user where user_name = ? and password= ? ", [username, password], (err, data) => {
     if (err) {
       console.log(err)
       return res.json(err);
-    } 
-    
-    if(data.length > 0){
+    }
+
+    if (data.length > 0) {
       console.log(data)
-      return res.json("success");      
-    }else{
-      return res.json("false");    
+      return res.json("success");
+    } else {
+      return res.json("false");
     }
   })
 })
 
-app.get('/getUser', (req, res) => {  
+app.get('/getUser', (req, res) => {
   console.log("getUser")
   db.query("SELECT * FROM user ", (err, data) => {
     if (err) {
       console.log(err)
       return res.json(err);
-    }  
-    if(data.length > 0){
+    }
+    if (data.length > 0) {
       console.log(data)
-      return res.json(data);      
-    }else{
-      return res.json("false");    
+      return res.json(data);
+    } else {
+      return res.json("false");
     }
   })
 })
@@ -75,10 +76,10 @@ app.post('/deleteusers', (req, res) => {
   console.log(req.body)
   const id = req.body[0];
   db.query("DELETE FROM user WHERE id=?", [id], (err, result) => {
-    if (err){
+    if (err) {
       res.status(500).json(err);
       console.log(err)
-    } 
+    }
     else res.json({ message: "✅ ลบข้อมูลสำเร็จ!" });
   });
 });
