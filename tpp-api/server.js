@@ -70,6 +70,18 @@ app.get('/getUser', (req, res) => {
   })
 })
 
+// ลบข้อมูล
+app.post('/deleteusers', (req, res) => {
+  console.log(req.body)
+  const id = req.body[0];
+  db.query("DELETE FROM user WHERE id=?", [id], (err, result) => {
+    if (err){
+      res.status(500).json(err);
+      console.log(err)
+    } 
+    else res.json({ message: "✅ ลบข้อมูลสำเร็จ!" });
+  });
+});
 app.listen(8080, () => {
   console.log("web listening port 8080");
 });

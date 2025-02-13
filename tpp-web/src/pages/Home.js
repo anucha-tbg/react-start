@@ -23,6 +23,19 @@ export default function Home() {
       });
   }, []);
   console.log("data", data)
+
+
+  const handleDelete = (id) => {
+    axios
+      .post('http://localhost:8080/deleteusers',[id])
+      .then(() => {
+        alert("ลบข้อมูลสำเร็จ!");
+        window.location.reload();
+      })
+      .catch((err) => console.error(err));
+  };
+
+
   return (
     <>
       <div className="Home">
@@ -35,17 +48,21 @@ export default function Home() {
               <th>id</th>
               <th>Username</th>
               <th>Password</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {
-              data.map(item => ( 
+              data.map(item => (
                 <tr>
                   <td>{item.id}</td>
                   <td>{item.user_name}</td>
-                  <td>{item.password}</td> 
+                  <td>{item.password}</td>
+                  <td>
+                    <Button className='btn-danger' onClick={() => handleDelete(item.id)}>ลบ</Button>
+                  </td>
                 </tr>
-              ))} 
+              ))}
 
           </tbody>
         </Table>
