@@ -1,66 +1,60 @@
-
-//const express = require('express');
-//const app = express();
-//const mysql = require('mysql2/promise');
-const mysql = require('mysql2');
+const express = require('express');
 //const mysql = require('mysql');
-//const cors = require('cors');
-//import mysql from 'mysql2/promise'; 
+const mysql = require('mysql2');
+//const mysql = require('mysql2/promise');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-//app.use(cors());
-//app.use(express.json());
-
-/*const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '5WV3gxFHzJ',
-  database: 'smms'
-});*/
+const app = express();
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
 
 const db = mysql.createPool({
+  connectionLimit: 10,
   host: 'localhost',
   user: 'root',
   password: '5WV3gxFHzJ',
-  database: 'tpp_test' 
+  database: 'tpp_test'
 });
-module.exports = db;
-/*
-db.execute('SELECT * FROM tb_location where Id > ?',[1],(err,reault,fields) =>{
-  console.log(err);
-  console.log(reault);
-  console.log(reault);
-});*/
- /*
-db.query('SELECT * FROM user',(err,reault,fields) =>{
-  console.log(err);
-  console.log(reault);
-  console.log(fields);
-});*/
 
- 
-/*
-async function main() {
-  try {
-    // Connect to the database using promises
-    const connection = await mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '5WV3gxFHzJ',
-      database: 'smms'
-    });
 
-    console.log('Connected to MySQL Database!');
+app.post('/signup', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  db.query("INSERT INTO user(user_name,password) VALUES(?,?)", [username, password], (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      res.send({ username: username })
+    }
+  })
+})
 
-    // Execute a query using promise
-    const [rows, fields] = await connection.execute('SELECT * FROM users');
-    console.log('Query Result:', rows);
+app.post('/signin', (req, res) => {
+  //const username = req.body.username;
+  //const password = req.body.password;
+  const username =req.body[0];
+  const password =req.body[1];
+  console.log(req.body[0])
+  db.query("SELECT * FROM user where user_name = ? and password= ? ", [username, password], (err, data) => {
+    if (err) {
+      console.log(err)
+      return res.json(err);
+    } 
+    
+    if(data.length > 0){
+      console.log(data)
+      return res.json("success");      
+    }else{
+      return res.json("false");    
+    }
+  })
+})
 
-    // Close the connection
-    await connection.end();
-  } catch (err) {
-    console.error('Error:', err);
-  }
-}
+//app.listen(8080, () => {
+//  console.log("web listening port 8080");
+//});
 
-main();
-*/

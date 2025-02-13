@@ -5,7 +5,6 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Signin from './components/login/Signin';
 import Signup from './components/login/Signup';
-import Home1 from './components/home/Home';
 
 // PAGES
 import Home from "./pages/Home";

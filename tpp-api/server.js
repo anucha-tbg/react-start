@@ -54,7 +54,23 @@ app.post('/signin', (req, res) => {
   })
 })
 
+app.get('/getUser', (req, res) => {  
+  console.log("getUser")
+  db.query("SELECT * FROM user ", (err, data) => {
+    if (err) {
+      console.log(err)
+      return res.json(err);
+    }  
+    if(data.length > 0){
+      console.log(data)
+      return res.json(data);      
+    }else{
+      return res.json("false");    
+    }
+  })
+})
+
 app.listen(8080, () => {
-  console.log("listening port 8080");
+  console.log("web listening port 8080");
 });
 
